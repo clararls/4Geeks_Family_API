@@ -14,27 +14,29 @@ class FamilyStructure:
         self.last_name = last_name
 
         # example list of members
-        self._members = [{
-            'id' : 1,
-            'first_name' : 'John',
-            'last_name' : self.last_name,
-            'age' : '33 Years old',
-            'lucky_numbers' : [7,13,22],
-        },
-        {
-            'id' : 2,
-            'first_name' : 'Jane',
-            'last_name' : self.last_name,
-            'age' : '35 Years old',
-            'lucky_numbers' : [10,14,3],
-        },
-        {
-            'id' : 3,
-            'first_name' : 'Jimmy',
-            'last_name' : self.last_name,
-            'age' : '5 Years old',
-            'lucky_numbers' : [1],
-        },]
+        self._members = [
+            {
+                'id': self._generateId(),
+                'first_name': 'John',
+                'last_name': last_name,
+                'age': 33, 
+                'lucky numbers': [7, 13, 22]
+            },
+            {
+                'id': self._generateId(),
+                'first_name': 'Jane',
+                'last_name': last_name,
+                'age': 35, 
+                'lucky numbers': [10, 14, 3]
+            },
+            {
+                'id': self._generateId(),
+                'first_name': 'Jimmy',
+                'last_name': last_name,
+                'age': 5, 
+                'lucky numbers': [1]
+            },
+        ]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
@@ -42,30 +44,29 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        person = {
-            "id": self._generateId(),
-            "first_name": member,
-            "last_name": last_name,
-        }
-        self._members.append(person)
+        member['last_name']=self.last_name
+        self._members.append(member)
 
     def delete_member(self, id):
         # fill this method and update the return
+        index = None
         for position in range(len(self._members)):
             if self._members[position]["id"] == id:
-                self._members.pop(position)
+                index = position
+        if index:        
+            self._members.pop(index)
 
-    def update_member(self, id, member):
+    def update_member(self, id):
         for position in range(len(self._members)):
             if self._members[position]["id"] == id:
-                self._members.update(position)
-
+                self._members[position].update({"first_name": "Peter"})
+                print(self._members[position])
+                
     def get_member(self, id):
         # fill this method and update the return
-        filtered_member = list(
-            filter(lambda member: member["id"] == id, self._members))
-        return filtered_member
-
+        for member in self._members:
+            if member["id"] == id:
+                return member
     # this method is done, it returns a list with all the family members
 
     def get_all_members(self):
